@@ -1,0 +1,391 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DocumentsControlModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Codigo_Documento">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FechaDoc" Type="date" />
+          <Property Name="UserCorreo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Departamento_Origen" Type="int" Nullable="false" />
+          <Property Name="Departamento_Destino" Type="int" Nullable="false" />
+          <Property Name="Secuencia" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Departamento">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Siglas" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Correo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Departamento" Type="int" Nullable="false" />
+          <Property Name="Cargo" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <Association Name="fk_CodigoDocumento_DepartamentoDest">
+          <End Role="Departamento" Type="Self.Departamento" Multiplicity="1" />
+          <End Role="Codigo_Documento" Type="Self.Codigo_Documento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamento">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Codigo_Documento">
+              <PropertyRef Name="Departamento_Destino" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_CodigoDocumento_DepartamentoOrig">
+          <End Role="Departamento" Type="Self.Departamento" Multiplicity="1" />
+          <End Role="Codigo_Documento" Type="Self.Codigo_Documento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamento">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Codigo_Documento">
+              <PropertyRef Name="Departamento_Origen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Usuario_Departamento">
+          <End Role="Departamento" Type="Self.Departamento" Multiplicity="1" />
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamento">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="Departamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="Rep_Doc_DateRange" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DateStart" Type="date" Mode="In" />
+          <Parameter Name="DateEnd" Type="date" Mode="In" />
+        </Function>
+        <Function Name="Rep_Doc_DepDest" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DepDest" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Rep_Doc_DepOrig" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DepOrig" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Rep_Doc_User" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserEmail" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="VistaSecuencia" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="VistaUsuarios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="DocumentsControlModelStoreContainer">
+          <EntitySet Name="Codigo_Documento" EntityType="Self.Codigo_Documento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Departamento" EntityType="Self.Departamento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="fk_CodigoDocumento_DepartamentoDest" Association="Self.fk_CodigoDocumento_DepartamentoDest">
+            <End Role="Departamento" EntitySet="Departamento" />
+            <End Role="Codigo_Documento" EntitySet="Codigo_Documento" />
+          </AssociationSet>
+          <AssociationSet Name="fk_CodigoDocumento_DepartamentoOrig" Association="Self.fk_CodigoDocumento_DepartamentoOrig">
+            <End Role="Departamento" EntitySet="Departamento" />
+            <End Role="Codigo_Documento" EntitySet="Codigo_Documento" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Usuario_Departamento" Association="Self.fk_Usuario_Departamento">
+            <End Role="Departamento" EntitySet="Departamento" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DocumentsControlModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Codigo_Documento">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FechaDoc" Type="DateTime" Precision="0" />
+          <Property Name="UserCorreo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Departamento_Origen" Type="Int32" Nullable="false" />
+          <Property Name="Departamento_Destino" Type="Int32" Nullable="false" />
+          <Property Name="Secuencia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Departamento" Relationship="Self.fk_CodigoDocumento_DepartamentoDest" FromRole="Codigo_Documento" ToRole="Departamento" />
+          <NavigationProperty Name="Departamento1" Relationship="Self.fk_CodigoDocumento_DepartamentoOrig" FromRole="Codigo_Documento" ToRole="Departamento" />
+        </EntityType>
+        <EntityType Name="Departamento">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Siglas" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Codigo_Documento" Relationship="Self.fk_CodigoDocumento_DepartamentoDest" FromRole="Departamento" ToRole="Codigo_Documento" />
+          <NavigationProperty Name="Codigo_Documento1" Relationship="Self.fk_CodigoDocumento_DepartamentoOrig" FromRole="Departamento" ToRole="Codigo_Documento" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.fk_Usuario_Departamento" FromRole="Departamento" ToRole="Usuarios" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Correo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Departamento" Type="Int32" Nullable="false" />
+          <Property Name="Cargo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Departamento1" Relationship="Self.fk_Usuario_Departamento" FromRole="Usuarios" ToRole="Departamento" />
+        </EntityType>
+        <Association Name="fk_CodigoDocumento_DepartamentoDest">
+          <End Role="Departamento" Type="Self.Departamento" Multiplicity="1" />
+          <End Role="Codigo_Documento" Type="Self.Codigo_Documento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamento">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Codigo_Documento">
+              <PropertyRef Name="Departamento_Destino" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_CodigoDocumento_DepartamentoOrig">
+          <End Role="Departamento" Type="Self.Departamento" Multiplicity="1" />
+          <End Role="Codigo_Documento" Type="Self.Codigo_Documento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamento">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Codigo_Documento">
+              <PropertyRef Name="Departamento_Origen" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Usuario_Departamento">
+          <End Role="Departamento" Type="Self.Departamento" Multiplicity="1" />
+          <End Role="Usuarios" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departamento">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="Usuarios">
+              <PropertyRef Name="Departamento" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DocumentsControlEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Codigo_Documento" EntityType="Self.Codigo_Documento" />
+          <EntitySet Name="Departamentoes" EntityType="Self.Departamento" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuario" />
+          <AssociationSet Name="fk_CodigoDocumento_DepartamentoDest" Association="Self.fk_CodigoDocumento_DepartamentoDest">
+            <End Role="Departamento" EntitySet="Departamentoes" />
+            <End Role="Codigo_Documento" EntitySet="Codigo_Documento" />
+          </AssociationSet>
+          <AssociationSet Name="fk_CodigoDocumento_DepartamentoOrig" Association="Self.fk_CodigoDocumento_DepartamentoOrig">
+            <End Role="Departamento" EntitySet="Departamentoes" />
+            <End Role="Codigo_Documento" EntitySet="Codigo_Documento" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Usuario_Departamento" Association="Self.fk_Usuario_Departamento">
+            <End Role="Departamento" EntitySet="Departamentoes" />
+            <End Role="Usuarios" EntitySet="Usuarios" />
+          </AssociationSet>
+          <FunctionImport Name="VistaUsuarios" ReturnType="Collection(DocumentsControlModel.VistaUsuarios_Result)" />
+          <FunctionImport Name="Rep_Doc_DateRange" ReturnType="Collection(DocumentsControlModel.Rep_Doc_DateRange_Result)">
+            <Parameter Name="DateStart" Mode="In" Type="DateTime" />
+            <Parameter Name="DateEnd" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="Rep_Doc_DepDest" ReturnType="Collection(DocumentsControlModel.Rep_Doc_DepDest_Result)">
+            <Parameter Name="DepDest" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Rep_Doc_DepOrig" ReturnType="Collection(DocumentsControlModel.Rep_Doc_DepOrig_Result)">
+            <Parameter Name="DepOrig" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Rep_Doc_User" ReturnType="Collection(DocumentsControlModel.Rep_Doc_User_Result)">
+            <Parameter Name="UserEmail" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="VistaSecuencia" ReturnType="Collection(DocumentsControlModel.VistaSecuencia_Result)" />
+        </EntityContainer>
+        <ComplexType Name="VistaUsuarios_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Correo" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Departamento" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="Cargo" Nullable="false" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="Rep_Doc_DateRange_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="DateTime" Name="FechaDoc" Nullable="true" />
+          <Property Type="String" Name="UserCorreo" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Departamento_Origen" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="Departamento_Destino" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="Secuencia" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="Rep_Doc_DepDest_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="DateTime" Name="FechaDoc" Nullable="true" />
+          <Property Type="String" Name="UserCorreo" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Departamento_Origen" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="Departamento_Destino" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="Secuencia" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="Rep_Doc_DepOrig_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="DateTime" Name="FechaDoc" Nullable="true" />
+          <Property Type="String" Name="UserCorreo" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Departamento_Origen" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="Departamento_Destino" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="Secuencia" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="Rep_Doc_User_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="DateTime" Name="FechaDoc" Nullable="true" />
+          <Property Type="String" Name="UserCorreo" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Departamento_Origen" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="Departamento_Destino" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="Secuencia" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="VistaSecuencia_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="DateTime" Name="FechaDoc" Nullable="true" />
+          <Property Type="String" Name="UserCorreo" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Departamento_Origen" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="Departamento_Destino" Nullable="false" MaxLength="30" />
+          <Property Type="String" Name="Secuencia" Nullable="true" MaxLength="50" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DocumentsControlModelStoreContainer" CdmEntityContainer="DocumentsControlEntities">
+          <EntitySetMapping Name="Codigo_Documento">
+            <EntityTypeMapping TypeName="DocumentsControlModel.Codigo_Documento">
+              <MappingFragment StoreEntitySet="Codigo_Documento">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FechaDoc" ColumnName="FechaDoc" />
+                <ScalarProperty Name="UserCorreo" ColumnName="UserCorreo" />
+                <ScalarProperty Name="Departamento_Origen" ColumnName="Departamento_Origen" />
+                <ScalarProperty Name="Departamento_Destino" ColumnName="Departamento_Destino" />
+                <ScalarProperty Name="Secuencia" ColumnName="Secuencia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departamentoes">
+            <EntityTypeMapping TypeName="DocumentsControlModel.Departamento">
+              <MappingFragment StoreEntitySet="Departamento">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Siglas" ColumnName="Siglas" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="DocumentsControlModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Departamento" ColumnName="Departamento" />
+                <ScalarProperty Name="Cargo" ColumnName="Cargo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="VistaUsuarios" FunctionName="DocumentsControlModel.Store.VistaUsuarios">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DocumentsControlModel.VistaUsuarios_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Departamento" ColumnName="Departamento" />
+                <ScalarProperty Name="Cargo" ColumnName="Cargo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Rep_Doc_DateRange" FunctionName="DocumentsControlModel.Store.Rep_Doc_DateRange">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DocumentsControlModel.Rep_Doc_DateRange_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FechaDoc" ColumnName="FechaDoc" />
+                <ScalarProperty Name="UserCorreo" ColumnName="UserCorreo" />
+                <ScalarProperty Name="Departamento_Origen" ColumnName="Departamento Origen" />
+                <ScalarProperty Name="Departamento_Destino" ColumnName="Departamento Destino" />
+                <ScalarProperty Name="Secuencia" ColumnName="Secuencia" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Rep_Doc_DepDest" FunctionName="DocumentsControlModel.Store.Rep_Doc_DepDest">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DocumentsControlModel.Rep_Doc_DepDest_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FechaDoc" ColumnName="FechaDoc" />
+                <ScalarProperty Name="UserCorreo" ColumnName="UserCorreo" />
+                <ScalarProperty Name="Departamento_Origen" ColumnName="Departamento Origen" />
+                <ScalarProperty Name="Departamento_Destino" ColumnName="Departamento Destino" />
+                <ScalarProperty Name="Secuencia" ColumnName="Secuencia" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Rep_Doc_DepOrig" FunctionName="DocumentsControlModel.Store.Rep_Doc_DepOrig">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DocumentsControlModel.Rep_Doc_DepOrig_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FechaDoc" ColumnName="FechaDoc" />
+                <ScalarProperty Name="UserCorreo" ColumnName="UserCorreo" />
+                <ScalarProperty Name="Departamento_Origen" ColumnName="Departamento Origen" />
+                <ScalarProperty Name="Departamento_Destino" ColumnName="Departamento Destino" />
+                <ScalarProperty Name="Secuencia" ColumnName="Secuencia" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Rep_Doc_User" FunctionName="DocumentsControlModel.Store.Rep_Doc_User">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DocumentsControlModel.Rep_Doc_User_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FechaDoc" ColumnName="FechaDoc" />
+                <ScalarProperty Name="UserCorreo" ColumnName="UserCorreo" />
+                <ScalarProperty Name="Departamento_Origen" ColumnName="Departamento Origen" />
+                <ScalarProperty Name="Departamento_Destino" ColumnName="Departamento Destino" />
+                <ScalarProperty Name="Secuencia" ColumnName="Secuencia" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="VistaSecuencia" FunctionName="DocumentsControlModel.Store.VistaSecuencia">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DocumentsControlModel.VistaSecuencia_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FechaDoc" ColumnName="FechaDoc" />
+                <ScalarProperty Name="UserCorreo" ColumnName="UserCorreo" />
+                <ScalarProperty Name="Departamento_Origen" ColumnName="Departamento Origen" />
+                <ScalarProperty Name="Departamento_Destino" ColumnName="Departamento Destino" />
+                <ScalarProperty Name="Secuencia" ColumnName="Secuencia" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

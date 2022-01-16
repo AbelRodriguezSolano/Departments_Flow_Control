@@ -1,0 +1,67 @@
+﻿@model EntitiesLayer.Codigo_Documento
+
+@{
+    ViewBag.Title = "Crear";
+
+    List<SelectListItem> Origen = (List<SelectListItem>)ViewBag.Origen;
+    List<SelectListItem> Destino = (List<SelectListItem>)ViewBag.Destino;
+
+}
+
+<h2 class="display-3 my-3 text-center">Crear Secuencia</h2>
+
+<div class="row justify-content-center">
+    <div class="col-12 col-md-8">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <hr />
+                <div class="form-group">
+                    <div class="col">
+                        <span class="text-muted font-weight-bolder">Fecha: </span>
+                        @Html.EditorFor(model => model.FechaDoc, new { htmlAttributes = new { @class = "form-control", type = "date", placeholder = "Fecha" } })
+                        @Html.ValidationMessageFor(model => model.FechaDoc, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col">
+                        <span class="text-muted font-weight-bolder">Usuario: </span>
+                        @Html.EditorFor(model => model.UserCorreo, new { htmlAttributes = new { @class = "form-control", type = "email", placeholder = "Usuario" } })
+                        @Html.ValidationMessageFor(model => model.UserCorreo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col">
+                        <span class="text-muted font-weight-bolder">Departamento Origen: </span>
+                        @Html.DropDownListFor(model => model.Departamento_Origen, Origen, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Departamento_Origen, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col">
+                        <span class="text-muted font-weight-bolder">Departamento Destino: </span>
+                        @Html.DropDownListFor(model => model.Departamento_Destino, Destino, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(model => model.Departamento_Destino, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                <div class="form-group">
+                    <div class="col">
+                        <input type="submit" value="Crear" class="btn btn-primary btn-block" />
+                        <a href="/CodigoDocumento/Index" class="btn btn-primary btn-block">Volver</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

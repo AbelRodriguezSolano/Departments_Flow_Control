@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "Reporte";
+}
+
+<h2 class="display-4 my-3 text-center">Reporte por Rango de Fechas</h2>
+
+<div class="row justify-content-center">
+    <div class="col-12 col-md-6" >
+        <form action="/DocumentReports/DateReportResult" method="post">
+
+            <div class="form-group">
+                <label>Fecha Inicio:</label>
+                <input type="date" name="datestart" value="" class="form-control" />
+            </div>
+
+            <div class="form-group">
+                <label>Fecha Final:</label>
+                <input type="date" name="dateend" value="" class="form-control" />
+            </div>
+
+            <input type="submit" name="name" value="Buscar" class="btn btn-primary btn-block" />
+        </form>
+    </div>
+</div>

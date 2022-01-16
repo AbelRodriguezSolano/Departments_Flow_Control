@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "UserReport";
+}
+
+<h2 class="display-4 my-3 text-center">Reporte Por Usuarios</h2>
+
+<div class="row justify-content-center">
+    <div class="col-12 col-md-6">
+        <form action="/DocumentReports/UserReportResult" method="post">
+            <div class="form-group">
+                <label>Usuario:</label>
+                <input type="email" name="user" value="" class="form-control"/>
+            </div>
+            <input type="submit" name="name" value="Buscar" class="btn btn-primary btn-block"/>
+        </form>
+    </div>
+</div>

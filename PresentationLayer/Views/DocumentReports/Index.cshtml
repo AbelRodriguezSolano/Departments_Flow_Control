@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewBag.Title = "Reportes";
+}
+
+<h2 class="display-2 my-3 text-center">Reportes</h2>
+
+<div class="row">
+
+    <div class="col-sm-12 col-md-6">
+        <div class="card">
+            <div class="card-header">
+                Reporte
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Reporte por Rango de Fechas</h5>
+                <p class="card-text">Podras consultar las secuencias de documentos entre un rango de dos fechas.</p>
+                <a href="/DocumentReports/DateReport" class="btn btn-primary">Consultar</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-6 mt-sm-3 mt-md-0">
+        <div class="card">
+            <div class="card-header">
+                Reporte
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Reporte por Departamento Destino</h5>
+                <p class="card-text">Podras consultar las secuencias de documentos por el departamento al cual va dirigido el documento.</p>
+                <a href="/DocumentReports/DepDestReport" class="btn btn-primary">Consultar</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-6 my-3">
+        <div class="card">
+            <div class="card-header">
+                Reporte
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Reporte por Departamento Origen</h5>
+                <p class="card-text">Podras consultar las secuencias de documentos por el departamento que ha enviado el docuemento.</p>
+                <a href="/DocumentReports/DepOrigReport" class="btn btn-primary">Consultar</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-6 my-3">
+        <div class="card">
+            <div class="card-header">
+                Reporte
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Reporte por Usuario</h5>
+                <p class="card-text">Podras consultar las secuencias de documentos por el usuario que creo el documento</p>
+                <a href="/DocumentReports/UserReport" class="btn btn-primary">Consultar</a>
+            </div>
+        </div>
+    </div>
+</div>

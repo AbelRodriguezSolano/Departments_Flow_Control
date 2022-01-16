@@ -1,0 +1,22 @@
+﻿
+@{
+    ViewBag.Title = "Reporte";
+    List<SelectListItem> items = (List<SelectListItem>)ViewBag.items;
+
+}
+<h2 class="display-4 my-3 text-center">Reporte por Departamento Origen</h2>
+
+<div class="row justify-content-center">
+    <div class="col-12 col-md-6">
+        <form action="/DocumentReports/DepOrigReportResult" method="post">
+            <div class="form-group">
+                <label class="col-form-label">Departamento Origen:</label>
+
+                @*<input type="number" name="DepOrig" value="" class="form-control" />*@
+                @Html.DropDownList("Departamentos", items, new { @class = "form-control", Name = "DepOrig" })
+            </div>
+            <input type="submit" value="Buscar" class="btn btn-primary btn-block" />
+        </form>
+    </div>
+</div>
+

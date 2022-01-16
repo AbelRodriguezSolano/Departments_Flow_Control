@@ -1,0 +1,48 @@
+﻿@model EntitiesLayer.Departamento
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2 class="display-3 my-3 text-center">Crear Departamento</h2>
+
+<div class="row justify-content-center">
+    <div class="col-12 col-md-8 text-center">
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="">
+                <hr />
+                <div class="form-group">
+                    <div class="col">
+                        @Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @class = "form-control", placeholder = "Nombre" } })
+                        @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col">
+                        @Html.EditorFor(model => model.Siglas, new { htmlAttributes = new { @class = "form-control", placeholder = "Siglas" } })
+                        @Html.ValidationMessageFor(model => model.Siglas, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+                <div class="form-group">
+                    <div class="col">
+                        <input type="submit" value="Crear" class="btn btn-primary btn-block" />
+                        <a href="/Departamento/Index" class="btn btn-primary btn-block">Volver</a>
+                    </div>
+                </div>
+            </div>
+        }
+
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

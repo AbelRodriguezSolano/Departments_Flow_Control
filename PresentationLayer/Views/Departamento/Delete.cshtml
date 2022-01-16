@@ -1,0 +1,34 @@
+﻿@model EntitiesLayer.Departamento
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2 class="display-3 my-3 text-center">Eliminar Departamento</h2>
+
+<div class="row justify-content-center">
+    <div class="col-12 d-flex justify-content-center">
+        <div class="card text-white bg-danger mb-3" style="max-width: 20rem;">
+            <div class="card-header">Eliminar</div>
+            <div class="card-body">
+                <h5 class="card-title">
+                    @Html.DisplayNameFor(model => model.Nombre):
+                    @Html.DisplayFor(model => model.Nombre)
+                    <br />
+                    @Html.DisplayNameFor(model => model.Siglas):
+                    @Html.DisplayFor(model => model.Siglas)
+                </h5>
+                <p class="card-text">¿Está seguro de que desea eliminar? Una vez hecho no podra recuperar los datos.</p>
+            </div>
+        </div>
+    </div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger" />
+            <a href="/Departamento/Index" class="btn btn-primary">Volver</a>
+        </div>
+    }
+</div>

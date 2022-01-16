@@ -1,0 +1,49 @@
+﻿@model IEnumerable<EntitiesLayer.Rep_Doc_DepOrig_Result>
+
+@{
+    ViewBag.Title = "DepOrigReportResult";
+}
+
+<h2 class="display-4 my-3 text-center">Reporte Por Departemento de Origen</h2>
+
+<table class="table  table-dark table-borderless table-hover">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FechaDoc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserCorreo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Departamento_Origen)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Departamento_Destino)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Secuencia)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Convert.ToDateTime(item.FechaDoc).ToString("dddd, dd MMMM yyyy")
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserCorreo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Departamento_Origen)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Departamento_Destino)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Secuencia)
+        </td>
+    </tr>
+}
+
+</table>

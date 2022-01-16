@@ -1,0 +1,43 @@
+﻿@using Microsoft.AspNet.Identity;
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="row justify-content-center mt-5">
+    <div class="col-sm-6 col-md-3 d-flex justify-content-center">
+        <div class="card" style="width: 18rem;">
+            <img src="~/images/icon-supervisor.svg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title text-center">Reportes</h5>
+                <a href="/DocumentReports/Index" class="btn btn-primary btn-block">Ir a Reportes</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-3 d-flex justify-content-center">
+        <div class="card" style=" width: 18rem;">
+            <img src="~/images/icon-team-builder.svg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title text-center">Departamentos</h5>
+                <a href="/Departamento/Index" class="btn btn-primary btn-block">Ir a Departamentos</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-3 d-flex justify-content-center">
+        <div class="card" style=" width: 18rem;">
+            <img src="~/images/icon-calculator.svg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title text-center">Secuencia de Documento</h5>
+                <a href="/CodigoDocumento/Index" class="btn btn-primary btn-block">Ir a Secuencia</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-3 d-flex justify-content-center">
+        <div class="card" style=" width: 18rem;">
+            <img src="~/images/icon-karma.svg" class="card-img-top" alt="...">
+            <div class="card-body">
+                <h5 class="card-title text-center">Usuarios</h5>
+                <a href="/Usuario/Index" class="btn btn-primary btn-block">Ir a Usuarios</a>
+            </div>
+        </div>
+    </div>
+</div>
