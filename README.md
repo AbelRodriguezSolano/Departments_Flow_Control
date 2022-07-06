@@ -1,4 +1,4 @@
-# DocumentsControlSystem
+# Departments Flow Control
 This System was build in ASP.NET MVC AND SQL Server.
 This project was made to solve the documents sequence between different department in a company.
 
